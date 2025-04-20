@@ -1,54 +1,95 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🐣 Easter Puzzle: Egg Hunt Game
 
-Currently, two official plugins are available:
+Welcome to **Easter Puzzle**, a vibe-codded drag-and-drop egg hunt game where kids can solve puzzles, uncover hidden code, and win parents love! Built with **React 19**, **TypeScript**, and **Vite**, this interactive game is designed to be fun, educational, and lightweight for the web.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🧩 Puzzle-based gameplay
+- 🎨 Drag-and-drop mechanics (powered by `react-dnd`)
+- 📱 Touch support for mobile devices
+- 🎉 "You Win" screen and hidden surprises
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 🚀 Getting Started
+
+To get the game running locally:
+
+```bash
+# Clone the repo
+git clone https://github.com/your-username/easter-puzzle.git
+cd easter-puzzle
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## 📦 Build for Production
+
+```bash
+npm run build
 ```
+
+Preview the build output locally:
+
+```bash
+npm run preview
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- **React 19**
+- **Vite**
+- **TypeScript**
+- **react-dnd** for drag-and-drop
+- **ESLint** for linting and code quality
+
+---
+
+## 📸 Screenshots
+
+| Puzzle View                                   | Code                                               | Victory Screen                               |
+|-----------------------------------------------|----------------------------------------------------|----------------------------------------------|
+| ![Puzzle](src/assets/screenshots/three_s.png) | ![Drag and Drop](src/assets/screenshots/two_s.png) | ![Victory](src/assets/screenshots/one_s.png) |
+
+> Place your screenshots in the `public/screenshots/` folder or `src/assets/screenshots/` depending on how you want to import them.
+
+---
+
+## 📁 Project Structure
+
+```
+easter-puzzle/
+├── public/
+│   
+├── src/
+│   ├── components/
+│   ├── assets/
+│   │    └── /screenshots
+│   └── App.tsx
+├── index.html
+├── vite.config.ts
+└── README.md
+```
+
+---
+
+## 🎯 License
+
+MIT License © 2025 
+
+---
+
+Happy egg hunting! 🐰🥚🌸
