@@ -1,0 +1,142 @@
+/* Container for the tray and buttons */
+.puzzle-tray-container {
+    display: flex;
+    align-items: center;
+    position: relative; /* Needed for absolute positioning of buttons */
+    width: 100%;
+    max-width: 800px; /* Max width constraint */
+    margin: 20px auto; /* Center the container */
+    padding: 0 30px; /* Add padding to prevent buttons overlapping content */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* The scrollable tray area */
+.puzzle-tray {
+    display: flex;
+    align-items: center; /* Vertically center pieces if tray is taller */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical overflow */
+    padding: 15px 10px; /* Vertical and horizontal padding inside the tray */
+    background-color: #e8e8e8; /* Light grey background */
+    border-radius: 10px;
+    scroll-behavior: smooth; /* Smooth scrolling via buttons */
+    flex-grow: 1; /* Allow tray to fill container space */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+
+    /* Hide scrollbar across browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+.puzzle-tray::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+}
+
+/* Individual slot containing a puzzle piece */
+.tray-slot {
+    flex-shrink: 0; /* Prevent slots from shrinking */
+    margin-right: 10px; /* Spacing between pieces */
+    transition: transform 0.2s ease-in-out;
+}
+.tray-slot:last-child {
+    margin-right: 0; /* No margin for the last item */
+}
+.tray-slot:hover {
+    transform: translateY(-4px); /* Slight lift on hover */
+}
+
+/* Styling for the puzzle pieces */
+.puzzle-piece {
+    display: block; /* Ensure it takes up space correctly */
+    background-repeat: no-repeat;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.puzzle-piece:not(.placed):hover {
+    transform: scale(1.05); /* Slightly enlarge non-placed pieces on hover */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Style for pieces currently being dragged */
+.puzzle-piece.dragging {
+    /* Opacity is handled inline for react-dnd */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4); /* More prominent shadow */
+    border-color: transparent; /* Hide border while dragging */
+    z-index: 1000; /* Ensure dragged piece is on top */
+}
+
+/* Style for pieces that are correctly placed (on the board, not visually applied here but useful) */
+.puzzle-piece.placed {
+    /* Cursor is handled inline */
+    box-shadow: none; /* Remove shadow if placed */
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Very faint border */
+}
+
+/* Scroll buttons */
+.tray-scroll-button {
+    background-color: #5a9cec; /* A nice blue */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 36px; /* Center text vertically */
+    text-align: center;
+    display: flex; /* Use flex for better centering if needed */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10; /* Ensure buttons are above tray content */
+    position: absolute; /* Position relative to the container */
+    top: 50%;
+    transform: translateY(-50%); /* Center vertically */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.tray-scroll-button:hover {
+    background-color: #4a8bdb; /* Darker blue on hover */
+}
+.tray-scroll-button:active {
+    transform: translateY(-50%) scale(0.95); /* Click effect */
+}
+
+.tray-scroll-button.left {
+    left: 0px; /* Position left button just outside container padding */
+}
+
+.tray-scroll-button.right {
+    right: 0px; /* Position right button just outside container padding */
+}
+
+/* Message shown when the tray is empty */
+.empty-tray-message {
+    text-align: center;
+    width: 100%; /* Take full width of the tray */
+    color: #777; /* Grey color for the message */
+    font-style: italic;
+    padding: 10px 0; /* Add some padding */
+    user-select: none; /* Prevent text selection */
+}
+
+/* Basic responsiveness: Adjust button position on smaller screens */
+@media (max-width: 450px) {
+    .puzzle-tray-container {
+        padding: 0 5px; /* Reduce padding */
+    }
+    .tray-scroll-button.left {
+        left: -5px; /* Move buttons closer */
+    }
+    .tray-scroll-button.right {
+        right: -5px; /* Move buttons closer */
+    }
+    .tray-scroll-button {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        line-height: 30px;
+    }
+}
