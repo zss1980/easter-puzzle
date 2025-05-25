@@ -1,14 +1,29 @@
 {
-  "name": "egghunt",
+  "name": "egghunt-monorepo",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "private": true,
+  "description": "Egghunt monorepo with ESLint and Prettier",
   "scripts": {
-    "build": "tsc"
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "start": "turbo start",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "typecheck": "turbo run typecheck"
   },
-  "dependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "turbo": "^2.0.6",
+    "typescript": "^5.5.3",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.2",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3"
   },
-  "private": true
+  "workspaces": [
+    "apps/*"
+  ],
+  "packageManager": "npm@latest"
 }

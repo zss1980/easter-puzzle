@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    ports:
+      - "${BACKEND_PORT_HOST:-3001}:${BACKEND_PORT_CONTAINER:-3001}"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development} # Can be 'production' in a prod compose file
+      MONGODB_URI: mongodb://mongo:27017/${MONGO_INITDB_DATABASE:-egghunt_db}
+      JWT_SECRET: ${JWT_SECRET:-default_super_secret_key_please_change}
+      BACKEND_PORT: ${BACKEND_PORT_CONTAINER:-3001} # Port inside the container
+    volumes:
+      # For development: Mounts the backend source code into the container.
+      # For production: This should be removed as code is copied in Dockerfile.
+      # Consider using profiles or separate compose files for dev vs prod.
+      - ./apps/backend/src:/usr/src/app/src # Mount only src, assuming dist is built
+      - ./apps/backend/package.json:/usr/src/app/package.json
+      - ./apps/backend/package-lock.json:/usr/src/app/package-lock.json
+      # Add other necessary files like tsconfig.json if needed for dev server
+      # - ./apps/backend/tsconfig.json:/usr/src/app/tsconfig.json
+    depends_on:
+      - mongo
+    # Add command for development if different from Dockerfile CMD (e.g., npm run dev)
+    # command: npm run dev
+
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT_HOST:-3000}:${FRONTEND_PORT_CONTAINER:-80}"
+    volumes:
+      # For development: Mounts the frontend source code into the container.
+      # For production: This should be removed.
+      - ./apps/frontend/src:/app/src
+      - ./apps/frontend/public:/app/public
+      - ./apps/frontend/package.json:/app/package.json
+      - ./apps/frontend/package-lock.json:/app/package-lock.json
+      - ./apps/frontend/vite.config.ts:/app/vite.config.ts # Or relevant config
+      # - ./apps/frontend/tsconfig.json:/app/tsconfig.json
+    depends_on:
+      - backend
+    # Vite requires CHOKIDAR_USEPOLLING=true in some Docker environments for HMR
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      WDS_SOCKET_PORT: ${FRONTEND_PORT_HOST:-3000} # For Create React App HMR with Nginx reverse proxy if not using Vite directly
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "${MONGO_PORT_HOST:-27017}:27017"
+    volumes:
+      - mongo-data:/data/db # Persists database data
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-password}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-egghunt_db} # Database to be created
+
+volumes:
+  mongo-data: # Defines the named volume for MongoDB data persistence

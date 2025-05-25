@@ -1,0 +1,35 @@
+# General ignores
+**/node_modules
+**/.git
+**/.turbo
+**/dist
+**/build
+**/coverage
+*.log
+
+# Environment files - these should not be committed or copied to Docker images
+# .env files might contain secrets.
+.env
+.env.*
+!.env.example # Allow .env.example
+
+# IDE specific files
+.vscode/
+.idea/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# If not using volume mounts for development and copying code directly,
+# you might want to be more specific in sub-directory .dockerignore files.
+# However, with root context builds, this root .dockerignore is key.
+
+# Specific to frontend if not handled by its own .dockerignore
+# apps/frontend/node_modules # Already covered by **/node_modules
+# apps/frontend/build # Already covered by **/build
+# apps/frontend/dist # Already covered by **/dist
+
+# Specific to backend if not handled by its own .dockerignore
+# apps/backend/node_modules # Already covered by **/node_modules
+# apps/backend/dist # Already covered by **/dist

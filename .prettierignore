@@ -1,0 +1,25 @@
+node_modules
+.turbo
+dist
+build
+coverage
+
+# Frontend build outputs
+apps/frontend/dist
+apps/frontend/build
+
+# Backend build outputs
+apps/backend/dist
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env*
+!.env.example
+
+# VSCode
+.vscode
